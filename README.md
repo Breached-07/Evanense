@@ -76,6 +76,9 @@ CookieAuthentication 0
 ⚠️ This is not recommended for production or shared systems. In future versions, we may support hashed passwords or cookie authentication.
 
 
+---
+
+
 ## ⚠️ Limitations
 
 ❌ No Raw Packet Support – Tools that use raw sockets (like ping, certain nmap scan types, or ARP-based tools) won't be routed through Tor. Tor only supports TCP traffic, so UDP, ICMP, and ARP are excluded.
