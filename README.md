@@ -40,6 +40,12 @@ sudo pacman -Syu ruby tor torsocks proxychains-ng curl git inetutils gnu-netcat
 ```bash
 git clone https://github.com/yourusername/evanense.git
 cd evanense
+```
+
+#### Run the installer.sh
+
+```bash
+chmod +x installer.sh
 ./installer.sh
 ```
 
@@ -70,4 +76,9 @@ CookieAuthentication 0
 ⚠️ This is not recommended for production or shared systems. In future versions, we may support hashed passwords or cookie authentication.
 
 
+## ⚠️ Limitations
+
+❌ No Raw Packet Support – Tools that use raw sockets (like ping, certain nmap scan types, or ARP-based tools) won't be routed through Tor. Tor only supports TCP traffic, so UDP, ICMP, and ARP are excluded.
+
+📶 Not All Commands Are Covered – Only commands listed in the NETWORK_CMDS array are auto-routed via torsocks/proxychains. Others will run normally unless manually configured.
 
