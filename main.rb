@@ -4,6 +4,8 @@ require 'readline'
 require 'socket'
 require 'rbconfig'
 
+$evanense_started_tor = false
+
 # List of network-based commands to route through Tor
 
 NETWORK_CMDS = %w[
@@ -30,6 +32,8 @@ def start_tor_cross_platform
     puts "[!] Unsupported OS: #{os}"
     return false
   end
+  
+ $evanense_started_tor = true if success
 
   unless success
     puts "[!] Failed to start Tor on #{os}"
@@ -89,6 +93,25 @@ def new_tor_circuit
   puts "[*] Requesting a new Tor circuit..."
   system('echo -e "AUTHENTICATE\nSIGNAL NEWNYM\nQUIT" | nc 127.0.0.1 9051')
 end
+
+
+# Stopping tor 
+def stop_tor_cross_platform
+  os = RbConfig::CONFIG['host_os']
+
+  puts "[*] Stopping Tor..."
+
+  case os
+  when /linux/
+    system("sudo systemctl stop tor") || system("sudo service tor stop") || system("sudo pkill tor")
+  when /darwin/
+    # On macOS: assumes tor installed via Homebrew, and run as user
+    system("pkill tor") || puts("[!] Could not stop Tor on macOS — try 'killall tor'")
+  else
+    puts "[!] Unsupported OS: #{os}"
+  end
+end
+
 
 start_tor
 puts "[*] Evanense → Tor-enabled Pentest Shell"
@@ -180,3 +203,11 @@ while input = Readline.readline('> ', true)
 end
 
 puts "[*] Exiting Evanense."
+
+
+
+if $evanense_started_tor
+  stop_tor_cross_platform
+end
+
+
