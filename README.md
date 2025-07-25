@@ -34,11 +34,12 @@ brew install ruby tor torsocks proxychains netcat curl git
 ### For Arch-based Distros
 
 ```bash
-sudo pacman -Syu ruby tor torsocks proxychains-ng curl git inetutils gnu-netcat
+sudo pacman -S ruby tor torsocks proxychains-ng curl git inetutils gnu-netcat
 ```
+
 ## Clone & Install
 ```bash
-git clone https://github.com/yourusername/evanense.git
+git clonehttps://github.com/Breached-07/Evanense.git
 cd evanense
 ```
 
